@@ -2,7 +2,7 @@ import socket
 
 import pickle
 
-from socket_message import SocketMessage
+from utils.socket_message import SocketMessage
 
 
 class BaseSocketConnection:
