@@ -1,2 +1,3 @@
 from .base_socket_connection import BaseSocketConnection
-from .server_socket_connection import ServerSocketConnection, ServerPollConnection
+from .server_socket_connection import ServerSocketConnection
+from .client_socket_connection import ClientSocketConnection

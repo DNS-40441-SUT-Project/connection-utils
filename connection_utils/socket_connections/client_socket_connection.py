@@ -3,7 +3,7 @@ import socket
 from connection_utils.socket_connections import BaseSocketConnection
 
 
-class ClientSocket(BaseSocketConnection):
+class ClientSocketConnection(BaseSocketConnection):
     _server_port: str = None
 
     @classmethod
