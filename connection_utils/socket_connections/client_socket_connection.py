@@ -1,6 +1,6 @@
 import socket
 
-from utils.socket_connections import BaseSocketConnection
+from connection_utils.socket_connections import BaseSocketConnection
 
 
 class ClientSocket(BaseSocketConnection):
