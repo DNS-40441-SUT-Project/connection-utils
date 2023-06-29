@@ -2,10 +2,10 @@ import socket
 
 import rsa
 
-from connection_utils.socket_connections import BaseSocketConnection, SafeConnectionMixin
+from connection_utils.socket_connections import BaseSocketConnection
 
 
-class ServerSocketConnection(SafeConnectionMixin, BaseSocketConnection):
+class ServerSocketConnection(BaseSocketConnection):
     _limit: int = None
     _listen_port: str = None
 
