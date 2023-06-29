@@ -5,4 +5,5 @@ setuptools.setup(
     name='connection_utils',
     version='0.1.1',
     packages=setuptools.find_packages(),
+    install_requires=['rsa', ],
 )

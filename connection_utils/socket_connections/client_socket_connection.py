@@ -1,9 +1,9 @@
 import socket
 
-from connection_utils.socket_connections import BaseSocketConnection
+from connection_utils.socket_connections import BaseSocketConnection, SafeConnectionMixin
 
 
-class ClientSocketConnection(BaseSocketConnection):
+class ClientSocketConnection(SafeConnectionMixin, BaseSocketConnection):
     _server_port: str = None
 
     @classmethod
