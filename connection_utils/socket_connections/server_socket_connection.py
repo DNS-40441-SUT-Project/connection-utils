@@ -1,5 +1,7 @@
 import socket
 
+import rsa
+
 from connection_utils.socket_connections import BaseSocketConnection, SafeConnectionMixin
 
 
@@ -38,3 +40,11 @@ class ServerSocketConnection(SafeConnectionMixin, BaseSocketConnection):
         )
         new_connection.set_sender('server')
         return new_connection, addr
+
+    def get_your_public_key(self):
+        return self._temporary_client_public_key
+
+    def send(self, path, client_public_key: rsa.PublicKey, data=None, headers=dict):
+        self._temporary_client_public_key = client_public_key
+        super(ServerSocketConnection, self).send(path, data, headers)
+        self._temporary_client_public_key = None
