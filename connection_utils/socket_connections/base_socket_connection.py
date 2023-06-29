@@ -3,6 +3,7 @@ import socket
 import pickle
 
 import rsa
+from cryptography.fernet import Fernet
 
 from connection_utils.socket_message import SocketMessage
 
@@ -35,6 +36,14 @@ class BaseSocketConnection:
             return None
         return received_data
 
+    def recieve_sym_decrypted(self, symmetric_key):
+        received_data = self.get_recieved_data()
+        if not received_data:
+            return SocketMessage(path='empty')
+        f = Fernet(symmetric_key)
+        decrypted_message = f.decrypt(received_data)
+        return SocketMessage.from_socket_data(pickle.loads(decrypted_message))
+
     def recieve_decrypted(self, private_key):
         received_data = self.get_recieved_data()
         if not received_data:
@@ -56,6 +65,10 @@ class BaseSocketConnection:
         message.body = data
         message.headers = headers
         return pickle.dumps(message.serialize())
+
+    def send_sym_encrypted(self, path, symmetric_key, data=None, headers=dict):
+        f = Fernet(symmetric_key)
+        self._conn.send(f.encrypt(self.get_dumped_message(path, data, headers)))
 
     def send_encrypted(self, path, public_key: rsa.PublicKey, data=None, headers=dict):
         self._conn.send(rsa.encrypt(self.get_dumped_message(path, data, headers), public_key))
