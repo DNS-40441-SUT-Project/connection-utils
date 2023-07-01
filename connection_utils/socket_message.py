@@ -1,3 +1,5 @@
+# this comment is just for test issues
+
 class SocketMessage:
     def __init__(self, path, sender=''):
         assert path
